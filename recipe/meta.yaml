@@ -1,5 +1,5 @@
 {% set name = "ro-json" %}
-{% set version = "1.0.3" %}
+{% set version = "1.0.4" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 source:
   # We initially released ro-json as ro_json first and it seems that pypi remembered that name?
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace("-", "_") }}-{{ version }}.tar.gz
-  sha256: 76706fe17bd3a59b7b96f19a2c81f4f6c0196c2c3024d80c66cea023dcfc6e8d
+  sha256: 731fd958231083b11497f6cabb187f80cbac7ce8b186718a5513b89bb1e5f1b2
 
 build:
   noarch: python
@@ -30,6 +30,7 @@ test:
     - pip
   commands:
     - pip check
+    - python -c "import ro_json; print(ro_json.__version__)"
 
 about:
   home: https://github.com/ramonaoptics/ro-json
