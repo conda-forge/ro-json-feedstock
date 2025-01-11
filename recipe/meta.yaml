@@ -1,3 +1,4 @@
+{% set python_min = '3.10' %}
 {% set name = "ro-json" %}
 {% set version = "1.0.4" %}
 
@@ -7,27 +8,28 @@ package:
 
 source:
   # We initially released ro-json as ro_json first and it seems that pypi remembered that name?
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace("-", "_") }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace("-", "_") }}-{{ version }}.tar.gz
   sha256: 731fd958231083b11497f6cabb187f80cbac7ce8b186718a5513b89bb1e5f1b2
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . --no-deps -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.10
+    - python {{ python_min }}
     - setuptools
   run:
-    - python >=3.10
+    - python >={{ python_min }}
 
 test:
   imports:
     - ro_json
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
     - python -c "import ro_json; print(ro_json.__version__)"
